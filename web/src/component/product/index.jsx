@@ -180,7 +180,7 @@ function Product() {
         <div key={eachProduct?._id}>
 <div className="img1">
                 {" "}
-                <img className="pic" src={eachProduct.profilePicture} alt="" />
+                <img className="pic" width='200px' src={eachProduct.profilePicture} alt="" />
               </div>
             <h3>{eachProduct?.name}</h3>
             <div>{eachProduct?.price}</div>

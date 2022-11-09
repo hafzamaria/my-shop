@@ -18,36 +18,66 @@ function Shop() {
     getAllProducts();
   }, [toggleRefresh]);
 
-  let cartHandler = async (e) => {
-    e.preventDefault();
+//   let cartHandler = async (e) => {
+//     e.preventDefault();
 
 
-    try {
-        let response = await
-            axios.post("http://localhost:5000/cart",
-                {
-                    name: cart.name,
-                   price: cart.price,
-                    description: cart.description,
-                    code: cart.code,
-                },
-                {
-                    // withCredentials: true
-                })
-        console.log("cart: ", response.data);
+//     try {
+//         let response = await
+//             axios.post("http://localhost:5000/cart",
+//                 {
+//                     name: cart.name,
+//                    price: cart.price,
+//                     description: cart.description,
+//                     code: cart.code,
+//                 },
+//                 {
+//                     // withCredentials: true
+//                 })
+//         console.log("cart: ", response.data);
 
-        setToggleRefresh(!toggleRefresh);
-        setCart(null);
-
-
-    } catch (e) {
-        console.log("Error in api call: ", e);
-
-    }
+//         setToggleRefresh(!toggleRefresh);
+//         setCart(null);
 
 
-}
+//     } catch (e) {
+//         console.log("Error in api call: ", e);
 
+//     }
+
+
+// }
+////////////////======================
+let cartHandler = async (e) => {
+      e.preventDefault();
+  
+  
+      try {
+          let response = await
+              axios.post("http://localhost:5000/cart",
+                  {
+                      name: cart.name,
+                     price: cart.price,
+                      description: cart.description,
+                      code: cart.code,
+                  },
+                  {
+                      // withCredentials: true
+                  })
+          console.log("cart: ", response.data);
+  
+          setToggleRefresh(!toggleRefresh);
+          setCart(null);
+  
+  
+      } catch (e) {
+          console.log("Error in api call: ", e);
+  
+      }
+  
+  
+  }
+/////////////////////=====================
   // const addToCart = async (e) => {
   //   e.preventDefault();
 
@@ -75,6 +105,7 @@ function Shop() {
   return (
     <>
     
+    
     {(cart !== null) ? (< div >
 
 <h1>
@@ -96,7 +127,7 @@ function Shop() {
           {products.map((eachProduct) => (
             <div className="key1" key={eachProduct._id}>
               <div className="img1">
-                <img className="pic" src={eachProduct.profilePicture} alt="" />
+                <img className="pic" width='200px' src={eachProduct.profilePicture} alt="" />
               </div>
               <div className="detail">
                 <p className="name1">{eachProduct.name}</p>
@@ -108,15 +139,19 @@ function Shop() {
                 <div className="price">{eachProduct.price}</div>
                 <br />
                 <div>{eachProduct.code}</div>
-                <button onClick={() => {
+                {/* <button onClick={() => { */}
+                 <button onClick={() => { 
                 setCart({
                     _id: eachProduct._id,
                     name: eachProduct?.name,
                     price: eachProduct?.price,
                     description: eachProduct?.description,
                     code: eachProduct?.code
+                
                 })
+                
             }}>Add to Cart</button>
+     
             </div>
           ))}
            
@@ -124,12 +159,8 @@ function Shop() {
       </div> 
 
    
-
-
-
-
-
     </>
+
   );
 }
 export default Shop;

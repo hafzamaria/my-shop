@@ -52,7 +52,18 @@ const userSchema = new mongoose.Schema({
 const userModel = mongoose.model('Users', userSchema);
 ////==================================
 
+//////==================userModel==================
+const formSchema = new mongoose.Schema({
 
+    name: { type: String },
+    email: { type: String,  },
+    address: { type: String,  },
+    contact: { type: Number,  },
+    city:{type:String,},
+    createdOn: { type: Date, default: Date.now },
+});
+const formModel = mongoose.model('Forms', formSchema);
+////==================================
 ////////////============cartSchema==============
 
 const cartSchema = new mongoose.Schema({
@@ -527,6 +538,7 @@ app.delete("/product/:id", async (req, res) => {
 
 
 ///////////////////shop////////////////////
+
 app.post("/cart", async (req, res) => {
 
     console.log("cart received: ", req.body);
@@ -570,10 +582,61 @@ app.get("/carts", async (req, res) => {
         });
     }
 })
-//////////////////////////////////////////////////////
+/////////////////////Form/////////////////////////////////
+// app.post("/form", async (req, res) => {
 
+//     console.log("form submit: ", req.body);
+   
 
+//     let newForm = new formModel({
+//         name: req.body.name,
+//         email: req.body.email,
+//         address: req.body.address,
+//         contact: req.body.contact,
+//         city:req.body.city,
+//     })
+//     try {
+//         let Form = await newForm.save()
+//         console.log("form submit successfully: ", Form);
 
+//         res.send({
+//             message: "form submit successfully",
+//             data: Form
+//         });
+//     } catch (error) {
+//         console.log(error)
+//         res.status(500).send({
+//             message: "failed to submit form"
+//         });
+//     }
+// })
+app.post("/form", async (req, res) => {
+
+    console.log("cart received: ", req.body);
+   
+
+    let newCart = new cartModel({
+        name: req.body.name,
+        description: req.body.description,
+        // price: req.body.price,
+        code: req.body.code,
+    })
+    try {
+        let Cart = await newCart.save()
+        console.log("product added in cart: ", Cart);
+
+        res.send({
+            message: "product added in cart",
+            data: Cart
+        });
+    } catch (error) {
+        console.log(error)
+        res.status(500).send({
+            message: "failed to add product in cart"
+        });
+    }
+})
+////////////////////========================
 app.use((req, res) => {
     res.status(404).send("404 not found");
 })
